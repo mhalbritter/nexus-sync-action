@@ -207,18 +207,16 @@ export class Nexus2Client {
     return new Promise(async (resolve, reject) => {
       const stream = fs.createReadStream(uploadFile.path)
       logInfo(`Handling file ${uploadFile.path}`)
+      const url = `${this.nexusServer.url}/service/local/staging/deployByRepositoryId/${repositoryId}/${uploadFile.group}/${uploadFile.name}`
+      logInfo(`Url for file is ${url}`)
       this.instance
-        .put(
-          `${this.nexusServer.url}/service/local/staging/deployByRepositoryId/${repositoryId}/${uploadFile.group}/${uploadFile.name}`,
-          stream,
-          {
-            headers: {
-              'Content-Type': 'application/octet-stream',
-              Pragma: 'no-cache',
-              'Cache-Control': 'no-cache'
-            }
+        .put(url, stream, {
+          headers: {
+            'Content-Type': 'application/octet-stream',
+            Pragma: 'no-cache',
+            'Cache-Control': 'no-cache'
           }
-        )
+        })
         .then(r => {
           logInfo(`OK ${uploadFile.path}`)
           resolve()

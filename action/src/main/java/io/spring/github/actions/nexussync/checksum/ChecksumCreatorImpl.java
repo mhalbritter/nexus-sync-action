@@ -92,7 +92,7 @@ class ChecksumCreatorImpl implements ChecksumCreator {
 			throw new UncheckedIOException("Failed to create checksum for file '%s'".formatted(path), ex);
 		}
 		catch (NoSuchAlgorithmException ex) {
-			throw new IllegalStateException("Unknonw checksum algorithm '%s'".formatted(algorithm), ex);
+			throw new IllegalStateException("Unknown checksum algorithm '%s'".formatted(algorithm), ex);
 		}
 	}
 
